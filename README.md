@@ -144,3 +144,81 @@ The index mapping created by the app is:
 - `chapter`: `integer`
 - `number`: `integer`
 - `verse`: `text`
+
+for comparison i created a psql and mysql instance:
+
+PSQL (without full text search):
+
+```sql
+  CREATE DATABASE bible;
+
+  CREATE TABLE verses (
+      book TEXT NOT NULL,
+      chapter INTEGER NOT NULL,
+      number INTEGER NOT NULL,
+      verse TEXT NOT NULL,
+      PRIMARY KEY (book, chapter, number)
+  );
+
+  CREATE INDEX idx_verses_book ON verses (book);
+  CREATE INDEX idx_verses_book_chapter ON verses (book, chapter);
+  CREATE INDEX idx_verses_chapter_number ON verses (chapter, number);
+```
+
+PSQL (with full text search):
+
+```sql
+   CREATE DATABASE bible_fts;
+
+  CREATE TABLE verses (
+      book TEXT NOT NULL,
+      chapter INTEGER NOT NULL,
+      number INTEGER NOT NULL,
+      verse TEXT NOT NULL,
+      verse_tsv tsvector GENERATED ALWAYS AS (
+          to_tsvector('simple', verse)
+      ) STORED,
+      PRIMARY KEY (book, chapter, number)
+  );
+
+  CREATE INDEX idx_verses_book ON verses (book);
+  CREATE INDEX idx_verses_book_chapter ON verses (book, chapter);
+  CREATE INDEX idx_verses_verse_tsv ON verses USING GIN (verse_tsv);
+```
+
+MySQL (without full text search):
+
+```sql
+  CREATE DATABASE bible;
+  USE bible;
+
+  CREATE TABLE verses (
+      book VARCHAR(100) NOT NULL,
+      chapter INT NOT NULL,
+      number INT NOT NULL,
+      verse TEXT NOT NULL,
+      PRIMARY KEY (book, chapter, number),
+      INDEX idx_verses_book (book),
+      INDEX idx_verses_book_chapter (book, chapter),
+      INDEX idx_verses_chapter_number (chapter, number),
+      FULLTEXT INDEX idx_verses_fulltext (verse)
+  );
+```
+
+MySQL (with full text search):
+
+```sql
+  CREATE DATABASE bible_fts;
+  USE bible_fts;
+
+  CREATE TABLE verses (
+      book VARCHAR(100) NOT NULL,
+      chapter INT NOT NULL,
+      number INT NOT NULL,
+      verse TEXT NOT NULL,
+      PRIMARY KEY (book, chapter, number),
+      INDEX idx_verses_book (book),
+      INDEX idx_verses_book_chapter (book, chapter),
+      FULLTEXT INDEX idx_verses_verse (verse)
+  ) ENGINE=InnoDB;
+```

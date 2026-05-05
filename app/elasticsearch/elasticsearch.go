@@ -13,9 +13,9 @@ import (
 	"github.com/lghartmann/fast-bible/app/extract"
 )
 
-func NewElasticSearch() *elasticsearch.TypedClient {
+func NewElasticSearch(addr string) *elasticsearch.TypedClient {
 	es, err := elasticsearch.NewTyped(
-		elasticsearch.WithAddresses("http://localhost:9200"),
+		elasticsearch.WithAddresses(addr),
 		elasticsearch.WithRetry(3, http.StatusInternalServerError),
 		elasticsearch.WithLogger(&elastictransport.TextLogger{Output: os.Stdout}),
 	)
