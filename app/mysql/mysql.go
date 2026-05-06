@@ -70,6 +70,67 @@ func EnsureSchema(db *sql.DB, fullText bool) error {
 	return nil
 }
 
+func SearchVerses(db *sql.DB, query string, limit int) (int, []extract.VerseDocument, error) {
+	total, err := countVerses(db, `
+		SELECT COUNT(*)
+		FROM verses
+		WHERE verse LIKE CONCAT('%', ?, '%')
+	`, query)
+	if err != nil {
+		return 0, nil, err
+	}
+
+	rows, err := db.Query(`
+		SELECT book, chapter, number, verse
+		FROM verses
+		WHERE verse LIKE CONCAT('%', ?, '%')
+		ORDER BY book, chapter, number
+		LIMIT ?
+	`, query, limit)
+	if err != nil {
+		return 0, nil, err
+	}
+	defer rows.Close()
+
+	verses, err := scanVerses(rows)
+	if err != nil {
+		return 0, nil, err
+	}
+
+	return total, verses, nil
+}
+
+func SearchVersesFTS(db *sql.DB, query string, limit int) (int, []extract.VerseDocument, error) {
+	exactPhrase := `"` + query + `"`
+	total, err := countVerses(db, `
+		SELECT COUNT(*)
+		FROM verses
+		WHERE MATCH(verse) AGAINST(? IN BOOLEAN MODE)
+	`, exactPhrase)
+	if err != nil {
+		return 0, nil, err
+	}
+
+	rows, err := db.Query(`
+		SELECT book, chapter, number, verse
+		FROM verses
+		WHERE MATCH(verse) AGAINST(? IN BOOLEAN MODE)
+		ORDER BY book, chapter, number
+		LIMIT ?
+	`, exactPhrase, limit)
+	if err != nil {
+		return 0, nil, err
+	}
+	defer rows.Close()
+
+	verses, err := scanVerses(rows)
+	if err != nil {
+		return 0, nil, err
+	}
+
+	return total, verses, nil
+}
+
 func InsertVerses(db *sql.DB, verses []extract.VerseDocument) error {
 	tx, err := db.Begin()
 	if err != nil {
@@ -103,4 +164,30 @@ func InsertVerses(db *sql.DB, verses []extract.VerseDocument) error {
 
 func isDuplicateIndexError(err error) bool {
 	return err != nil && (strings.Contains(err.Error(), "Duplicate key name") || strings.Contains(err.Error(), "already exists"))
+}
+
+func scanVerses(rows *sql.Rows) ([]extract.VerseDocument, error) {
+	verses := make([]extract.VerseDocument, 0)
+	for rows.Next() {
+		var verse extract.VerseDocument
+		if err := rows.Scan(&verse.Book, &verse.Chapter, &verse.Number, &verse.Verse); err != nil {
+			return nil, err
+		}
+		verses = append(verses, verse)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return verses, nil
+}
+
+func countVerses(db *sql.DB, query string, search string) (int, error) {
+	var total int
+	if err := db.QueryRow(query, search).Scan(&total); err != nil {
+		return 0, err
+	}
+
+	return total, nil
 }

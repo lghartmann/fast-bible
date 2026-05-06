@@ -1,0 +1,95 @@
+2026/05/05 21:05:11 benchmark starting with 5 queries across 5 data sources
+2026/05/05 21:05:11 ------------------------------------------------------------
+2026/05/05 21:05:11 query="a verdade e a vida"
+2026/05/05 21:05:11 source=elasticsearch | query="a verdade e a vida" | hits=0 | duration=38.417ms
+2026/05/05 21:05:11 sample | no hits
+2026/05/05 21:05:11 source=postgres | query="a verdade e a vida" | hits=0 | duration=95.045ms
+2026/05/05 21:05:11 sample | no hits
+2026/05/05 21:05:11 source=postgres_fts | query="a verdade e a vida" | hits=1 | duration=7.087ms
+2026/05/05 21:05:11 sample | João 14:6 | Respondeu-lhe Jesus: Eu sou o caminho, e a verdade, e a vida; ninguém vem ao Pai, senão por mim.
+2026/05/05 21:05:11 source=mysql | query="a verdade e a vida" | hits=0 | duration=66.369ms
+2026/05/05 21:05:11 sample | no hits
+2026/05/05 21:05:11 source=mysql_fts | query="a verdade e a vida" | hits=1 | duration=3.05ms
+2026/05/05 21:05:11 sample | João 14:6 | Respondeu-lhe Jesus: Eu sou o caminho, e a verdade, e a vida; ninguém vem ao Pai, senão por mim.
+2026/05/05 21:05:11 ------------------------------------------------------------
+2026/05/05 21:05:11 query="tribulações"
+2026/05/05 21:05:11 source=elasticsearch | query="tribulações" | hits=0 | duration=2.417ms
+2026/05/05 21:05:11 sample | no hits
+2026/05/05 21:05:11 source=postgres | query="tribulações" | hits=13 | duration=92.967ms
+2026/05/05 21:05:11 sample | 1 Tessalonicenses 3:3 | para que ninguém seja abalado por estas tribulações; porque vós mesmo sabeis que para isto fomos destin...
+2026/05/05 21:05:11 sample | 1 Tessalonicenses 3:4 | pois, quando estávamos ainda convosco, de antemão vos declarávamos que havíamos de padecer tribulaçõe...
+2026/05/05 21:05:11 sample | 2 Coríntios 7:4 | Grande é a minha franqueza para convosco, e muito me glorio a respeito de vós; estou cheio de consolaçã...
+2026/05/05 21:05:11 source=postgres_fts | query="tribulações" | hits=13 | duration=872µs
+2026/05/05 21:05:11 sample | 1 Tessalonicenses 3:3 | para que ninguém seja abalado por estas tribulações; porque vós mesmo sabeis que para isto fomos destin...
+2026/05/05 21:05:11 sample | 1 Tessalonicenses 3:4 | pois, quando estávamos ainda convosco, de antemão vos declarávamos que havíamos de padecer tribulaçõe...
+2026/05/05 21:05:11 sample | 2 Coríntios 7:4 | Grande é a minha franqueza para convosco, e muito me glorio a respeito de vós; estou cheio de consolaçã...
+2026/05/05 21:05:11 source=mysql | query="tribulações" | hits=13 | duration=29.962ms
+2026/05/05 21:05:11 sample | 1 Tessalonicenses 3:3 | para que ninguém seja abalado por estas tribulações; porque vós mesmo sabeis que para isto fomos destin...
+2026/05/05 21:05:11 sample | 1 Tessalonicenses 3:4 | pois, quando estávamos ainda convosco, de antemão vos declarávamos que havíamos de padecer tribulaçõe...
+2026/05/05 21:05:11 sample | 2 Coríntios 7:4 | Grande é a minha franqueza para convosco, e muito me glorio a respeito de vós; estou cheio de consolaçã...
+2026/05/05 21:05:11 source=mysql_fts | query="tribulações" | hits=13 | duration=967µs
+2026/05/05 21:05:11 sample | 1 Tessalonicenses 3:3 | para que ninguém seja abalado por estas tribulações; porque vós mesmo sabeis que para isto fomos destin...
+2026/05/05 21:05:11 sample | 1 Tessalonicenses 3:4 | pois, quando estávamos ainda convosco, de antemão vos declarávamos que havíamos de padecer tribulaçõe...
+2026/05/05 21:05:11 sample | 2 Coríntios 7:4 | Grande é a minha franqueza para convosco, e muito me glorio a respeito de vós; estou cheio de consolaçã...
+2026/05/05 21:05:11 ------------------------------------------------------------
+2026/05/05 21:05:11 query="perdoa"
+2026/05/05 21:05:11 source=elasticsearch | query="perdoa" | hits=0 | duration=2.108ms
+2026/05/05 21:05:11 sample | no hits
+2026/05/05 21:05:11 source=postgres | query="perdoa" | hits=114 | duration=78.533ms
+2026/05/05 21:05:11 sample | 1 João 1:9 | Se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar os pecados e nos purificar de toda...
+2026/05/05 21:05:11 sample | 1 João 2:12 | Filhinhos, eu vos escrevo, porque os vossos pecados são perdoados por amor do seu nome.
+2026/05/05 21:05:11 sample | 1 Reis 8:30 | Ouve, pois, a súplica do teu servo, e do teu povo Israel, quando orarem voltados para este lugar. Sim, ouv...
+2026/05/05 21:05:11 source=postgres_fts | query="perdoa" | hits=33 | duration=1.093ms
+2026/05/05 21:05:11 sample | 1 Reis 8:30 | Ouve, pois, a súplica do teu servo, e do teu povo Israel, quando orarem voltados para este lugar. Sim, ouv...
+2026/05/05 21:05:11 sample | 1 Reis 8:34 | ouve então do céu, e perdoa a pecado do teu povo Israel, e torna a levá-lo à terra que deste a seus pais.
+2026/05/05 21:05:11 sample | 1 Reis 8:36 | ouve então do céu, e perdoa o pecado dos teus servos e do teu povo Israel, ensinando-lhes o bom caminho e...
+2026/05/05 21:05:11 source=mysql | query="perdoa" | hits=114 | duration=29.362ms
+2026/05/05 21:05:11 sample | 1 João 1:9 | Se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar os pecados e nos purificar de toda...
+2026/05/05 21:05:11 sample | 1 João 2:12 | Filhinhos, eu vos escrevo, porque os vossos pecados são perdoados por amor do seu nome.
+2026/05/05 21:05:11 sample | 1 Reis 8:30 | Ouve, pois, a súplica do teu servo, e do teu povo Israel, quando orarem voltados para este lugar. Sim, ouv...
+2026/05/05 21:05:11 source=mysql_fts | query="perdoa" | hits=33 | duration=985µs
+2026/05/05 21:05:11 sample | 1 Reis 8:30 | Ouve, pois, a súplica do teu servo, e do teu povo Israel, quando orarem voltados para este lugar. Sim, ouv...
+2026/05/05 21:05:11 sample | 1 Reis 8:34 | ouve então do céu, e perdoa a pecado do teu povo Israel, e torna a levá-lo à terra que deste a seus pais.
+2026/05/05 21:05:11 sample | 1 Reis 8:36 | ouve então do céu, e perdoa o pecado dos teus servos e do teu povo Israel, ensinando-lhes o bom caminho e...
+2026/05/05 21:05:11 ------------------------------------------------------------
+2026/05/05 21:05:11 query="nos amou"
+2026/05/05 21:05:11 source=elasticsearch | query="nos amou" | hits=0 | duration=2.549ms
+2026/05/05 21:05:11 sample | no hits
+2026/05/05 21:05:11 source=postgres | query="nos amou" | hits=6 | duration=81.009ms
+2026/05/05 21:05:11 sample | 1 João 4:10 | Nisto está o amor: não em que nós tenhamos amado a Deus, mas em que ele nos amou a nós, e enviou seu Fi...
+2026/05/05 21:05:11 sample | 1 João 4:11 | Amados, se Deus assim nos amou, nós também devemos amar-nos uns aos outros.
+2026/05/05 21:05:11 sample | 1 João 4:19 | Nós amamos, porque ele nos amou primeiro.
+2026/05/05 21:05:11 source=postgres_fts | query="nos amou" | hits=6 | duration=1.107ms
+2026/05/05 21:05:11 sample | 1 João 4:10 | Nisto está o amor: não em que nós tenhamos amado a Deus, mas em que ele nos amou a nós, e enviou seu Fi...
+2026/05/05 21:05:11 sample | 1 João 4:11 | Amados, se Deus assim nos amou, nós também devemos amar-nos uns aos outros.
+2026/05/05 21:05:11 sample | 1 João 4:19 | Nós amamos, porque ele nos amou primeiro.
+2026/05/05 21:05:11 source=mysql | query="nos amou" | hits=6 | duration=29.816ms
+2026/05/05 21:05:11 sample | 1 João 4:10 | Nisto está o amor: não em que nós tenhamos amado a Deus, mas em que ele nos amou a nós, e enviou seu Fi...
+2026/05/05 21:05:11 sample | 1 João 4:11 | Amados, se Deus assim nos amou, nós também devemos amar-nos uns aos outros.
+2026/05/05 21:05:11 sample | 1 João 4:19 | Nós amamos, porque ele nos amou primeiro.
+2026/05/05 21:05:11 source=mysql_fts | query="nos amou" | hits=6 | duration=1.817ms
+2026/05/05 21:05:11 sample | 1 João 4:10 | Nisto está o amor: não em que nós tenhamos amado a Deus, mas em que ele nos amou a nós, e enviou seu Fi...
+2026/05/05 21:05:11 sample | 1 João 4:11 | Amados, se Deus assim nos amou, nós também devemos amar-nos uns aos outros.
+2026/05/05 21:05:11 sample | 1 João 4:19 | Nós amamos, porque ele nos amou primeiro.
+2026/05/05 21:05:11 ------------------------------------------------------------
+2026/05/05 21:05:11 query="o senhor é"
+2026/05/05 21:05:11 source=elasticsearch | query="o senhor é" | hits=0 | duration=2.262ms
+2026/05/05 21:05:11 sample | no hits
+2026/05/05 21:05:11 source=postgres | query="o senhor é" | hits=116 | duration=44.538ms
+2026/05/05 21:05:11 sample | 1 Coríntios 6:17 | Mas, o que se une ao Senhor é um só espírito com ele.
+2026/05/05 21:05:11 sample | 1 Coríntios 10:26 | Pois do Senhor é a terra e a sua plenitude.
+2026/05/05 21:05:11 sample | 1 Coríntios 12:5 | E há diversidade de ministérios, mas o Senhor é o mesmo.
+2026/05/05 21:05:11 source=postgres_fts | query="o senhor é" | hits=88 | duration=3.622ms
+2026/05/05 21:05:11 sample | 1 Coríntios 12:5 | E há diversidade de ministérios, mas o Senhor é o mesmo.
+2026/05/05 21:05:11 sample | 1 Pedro 2:3 | se é que já provastes que o Senhor é benigno.
+2026/05/05 21:05:11 sample | 1 Reis 8:60 | para que todos os povos da terra, saibam que o Senhor é Deus, e que não há outro.
+2026/05/05 21:05:11 source=mysql | query="o senhor é" | hits=411 | duration=33.878ms
+2026/05/05 21:05:11 sample | 1 Coríntios 6:17 | Mas, o que se une ao Senhor é um só espírito com ele.
+2026/05/05 21:05:11 sample | 1 Coríntios 10:21 | Não podeis beber do cálice do Senhor e do cálice de demônios; não podeis participar da mesa do Senhor...
+2026/05/05 21:05:11 sample | 1 Coríntios 10:26 | Pois do Senhor é a terra e a sua plenitude.
+2026/05/05 21:05:11 source=mysql_fts | query="o senhor é" | hits=707 | duration=50.97ms
+2026/05/05 21:05:11 sample | 1 Coríntios 6:13 | Os alimentos são para o estômago e o estômago para os alimentos; Deus, porém aniquilará, tanto um como...
+2026/05/05 21:05:11 sample | 1 Coríntios 6:17 | Mas, o que se une ao Senhor é um só espírito com ele.
+2026/05/05 21:05:11 sample | 1 Coríntios 7:22 | Pois aquele que foi chamado no Senhor, mesmo sendo escravo, é um liberto do Senhor; e assim também o que...
+2026/05/05 21:05:11 ------------------------------------------------------------
+2026/05/05 21:05:11 benchmark completed in 701.789ms
