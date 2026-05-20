@@ -162,6 +162,15 @@ func InsertVerses(db *sql.DB, verses []extract.VerseDocument) error {
 	return nil
 }
 
+func CheckMySQLDataExistence(db *sql.DB) (bool, error) {
+	var total int
+	if err := db.QueryRow(`SELECT COUNT(*) FROM verses`).Scan(&total); err != nil {
+		return false, err
+	}
+
+	return total > 0, nil
+}
+
 func isDuplicateIndexError(err error) bool {
 	return err != nil && (strings.Contains(err.Error(), "Duplicate key name") || strings.Contains(err.Error(), "already exists"))
 }

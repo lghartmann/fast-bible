@@ -15,10 +15,10 @@ type BibleFromJson struct {
 }
 
 type VerseDocument struct {
-	Number  int
-	Chapter int
-	Book    string
-	Verse   string
+	Number  int    `json:"number"`
+	Chapter int    `json:"chapter"`
+	Book    string `json:"book"`
+	Verse   string `json:"verse"`
 }
 
 func ExtractFromJSON() []VerseDocument {

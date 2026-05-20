@@ -159,6 +159,15 @@ func InsertVerses(db *sql.DB, verses []extract.VerseDocument) error {
 	return nil
 }
 
+func CheckPGDataExistence(db *sql.DB) (bool, error) {
+	var total int
+	if err := db.QueryRow(`SELECT COUNT(*) FROM verses`).Scan(&total); err != nil {
+		return false, err
+	}
+
+	return total > 0, nil
+}
+
 func buildDSN(cfg Config) string {
 	if strings.Contains(cfg.Address, "://") {
 		parsed, err := url.Parse(cfg.Address)

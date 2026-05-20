@@ -1,0 +1,106 @@
+2026/05/19 21:06:41 loaded 31104 verses from JSON
+2026/05/19 21:06:41 populating Elasticsearch index "bible_v2"
+2026/05/19 21:06:43 benchmark starting with 5 queries across 5 data sources
+2026/05/19 21:06:43 warmup pass (results discarded)
+2026/05/19 21:06:44 ------------------------------------------------------------
+2026/05/19 21:06:44 query="a verdade e a vida"
+2026/05/19 21:06:44 source=elasticsearch | query="a verdade e a vida" | hits=1 | duration=3.628ms
+2026/05/19 21:06:44 sample | João 14:6 | Respondeu-lhe Jesus: Eu sou o caminho, e a verdade, e a vida; ninguém vem ao Pai, senão por mim.
+2026/05/19 21:06:44 source=postgres | query="a verdade e a vida" | hits=0 | duration=114.967ms
+2026/05/19 21:06:44 sample | no hits
+2026/05/19 21:06:44 source=postgres_fts | query="a verdade e a vida" | hits=1 | duration=2.676ms
+2026/05/19 21:06:44 sample | João 14:6 | Respondeu-lhe Jesus: Eu sou o caminho, e a verdade, e a vida; ninguém vem ao Pai, senão por mim.
+2026/05/19 21:06:44 source=mysql | query="a verdade e a vida" | hits=0 | duration=70.371ms
+2026/05/19 21:06:44 sample | no hits
+2026/05/19 21:06:44 source=mysql_fts | query="a verdade e a vida" | hits=1 | duration=1.417ms
+2026/05/19 21:06:44 sample | João 14:6 | Respondeu-lhe Jesus: Eu sou o caminho, e a verdade, e a vida; ninguém vem ao Pai, senão por mim.
+2026/05/19 21:06:44 ------------------------------------------------------------
+2026/05/19 21:06:44 query="tribulações"
+2026/05/19 21:06:44 source=elasticsearch | query="tribulações" | hits=58 | duration=6.66ms
+2026/05/19 21:06:44 sample | Romanos 5:3 | E não somente isso, mas também gloriemo-nos nas tribulações; sabendo que a tribulação produz a persev...
+2026/05/19 21:06:44 sample | 2 Coríntios 1:4 | que nos consola em toda a nossa tribulação, para que também possamos consolar os que estiverem em alguma...
+2026/05/19 21:06:44 sample | Salmos 25:17 | Alivia as tribulações do meu coração; tira-me das minhas angústias.
+2026/05/19 21:06:44 source=postgres | query="tribulações" | hits=13 | duration=59.997ms
+2026/05/19 21:06:44 sample | 1 Tessalonicenses 3:3 | para que ninguém seja abalado por estas tribulações; porque vós mesmo sabeis que para isto fomos destin...
+2026/05/19 21:06:44 sample | 1 Tessalonicenses 3:4 | pois, quando estávamos ainda convosco, de antemão vos declarávamos que havíamos de padecer tribulaçõe...
+2026/05/19 21:06:44 sample | 2 Coríntios 7:4 | Grande é a minha franqueza para convosco, e muito me glorio a respeito de vós; estou cheio de consolaçã...
+2026/05/19 21:06:44 source=postgres_fts | query="tribulações" | hits=13 | duration=926µs
+2026/05/19 21:06:44 sample | 1 Tessalonicenses 3:3 | para que ninguém seja abalado por estas tribulações; porque vós mesmo sabeis que para isto fomos destin...
+2026/05/19 21:06:44 sample | 1 Tessalonicenses 3:4 | pois, quando estávamos ainda convosco, de antemão vos declarávamos que havíamos de padecer tribulaçõe...
+2026/05/19 21:06:44 sample | 2 Coríntios 7:4 | Grande é a minha franqueza para convosco, e muito me glorio a respeito de vós; estou cheio de consolaçã...
+2026/05/19 21:06:44 source=mysql | query="tribulações" | hits=13 | duration=33.031ms
+2026/05/19 21:06:44 sample | 1 Tessalonicenses 3:3 | para que ninguém seja abalado por estas tribulações; porque vós mesmo sabeis que para isto fomos destin...
+2026/05/19 21:06:44 sample | 1 Tessalonicenses 3:4 | pois, quando estávamos ainda convosco, de antemão vos declarávamos que havíamos de padecer tribulaçõe...
+2026/05/19 21:06:44 sample | 2 Coríntios 7:4 | Grande é a minha franqueza para convosco, e muito me glorio a respeito de vós; estou cheio de consolaçã...
+2026/05/19 21:06:44 source=mysql_fts | query="tribulações" | hits=13 | duration=3.175ms
+2026/05/19 21:06:44 sample | 1 Tessalonicenses 3:3 | para que ninguém seja abalado por estas tribulações; porque vós mesmo sabeis que para isto fomos destin...
+2026/05/19 21:06:44 sample | 1 Tessalonicenses 3:4 | pois, quando estávamos ainda convosco, de antemão vos declarávamos que havíamos de padecer tribulaçõe...
+2026/05/19 21:06:44 sample | 2 Coríntios 7:4 | Grande é a minha franqueza para convosco, e muito me glorio a respeito de vós; estou cheio de consolaçã...
+2026/05/19 21:06:44 ------------------------------------------------------------
+2026/05/19 21:06:44 query="perdoa"
+2026/05/19 21:06:44 source=elasticsearch | query="perdoa" | hits=42 | duration=3.959ms
+2026/05/19 21:06:44 sample | Mateus 6:12 | e perdoa-nos as nossas dívidas, assim como nós também temos perdoado aos nossos devedores;
+2026/05/19 21:06:44 sample | Salmos 25:18 | Olha para a minha aflição e para a minha dor, e perdoa todos os meus pecados.
+2026/05/19 21:06:44 sample | Salmos 103:3 | É ele quem perdoa todas as tuas iniqüidades, quem sara todas as tuas enfermidades,
+2026/05/19 21:06:44 source=postgres | query="perdoa" | hits=114 | duration=46.351ms
+2026/05/19 21:06:44 sample | 1 João 1:9 | Se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar os pecados e nos purificar de toda...
+2026/05/19 21:06:44 sample | 1 João 2:12 | Filhinhos, eu vos escrevo, porque os vossos pecados são perdoados por amor do seu nome.
+2026/05/19 21:06:44 sample | 1 Reis 8:30 | Ouve, pois, a súplica do teu servo, e do teu povo Israel, quando orarem voltados para este lugar. Sim, ouv...
+2026/05/19 21:06:44 source=postgres_fts | query="perdoa" | hits=33 | duration=902µs
+2026/05/19 21:06:44 sample | 1 Reis 8:30 | Ouve, pois, a súplica do teu servo, e do teu povo Israel, quando orarem voltados para este lugar. Sim, ouv...
+2026/05/19 21:06:44 sample | 1 Reis 8:34 | ouve então do céu, e perdoa a pecado do teu povo Israel, e torna a levá-lo à terra que deste a seus pais.
+2026/05/19 21:06:44 sample | 1 Reis 8:36 | ouve então do céu, e perdoa o pecado dos teus servos e do teu povo Israel, ensinando-lhes o bom caminho e...
+2026/05/19 21:06:44 source=mysql | query="perdoa" | hits=114 | duration=28.242ms
+2026/05/19 21:06:44 sample | 1 João 1:9 | Se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar os pecados e nos purificar de toda...
+2026/05/19 21:06:44 sample | 1 João 2:12 | Filhinhos, eu vos escrevo, porque os vossos pecados são perdoados por amor do seu nome.
+2026/05/19 21:06:44 sample | 1 Reis 8:30 | Ouve, pois, a súplica do teu servo, e do teu povo Israel, quando orarem voltados para este lugar. Sim, ouv...
+2026/05/19 21:06:44 source=mysql_fts | query="perdoa" | hits=33 | duration=1.234ms
+2026/05/19 21:06:44 sample | 1 Reis 8:30 | Ouve, pois, a súplica do teu servo, e do teu povo Israel, quando orarem voltados para este lugar. Sim, ouv...
+2026/05/19 21:06:44 sample | 1 Reis 8:34 | ouve então do céu, e perdoa a pecado do teu povo Israel, e torna a levá-lo à terra que deste a seus pais.
+2026/05/19 21:06:44 sample | 1 Reis 8:36 | ouve então do céu, e perdoa o pecado dos teus servos e do teu povo Israel, ensinando-lhes o bom caminho e...
+2026/05/19 21:06:44 ------------------------------------------------------------
+2026/05/19 21:06:44 query="nos amou"
+2026/05/19 21:06:44 source=elasticsearch | query="nos amou" | hits=29 | duration=6.231ms
+2026/05/19 21:06:44 sample | Romanos 8:37 | Mas em todas estas coisas somos mais que vencedores, por aquele que nos amou.
+2026/05/19 21:06:44 sample | 1 João 4:19 | Nós amamos, porque ele nos amou primeiro.
+2026/05/19 21:06:44 sample | Salmos 47:4 | Escolheu para nós a nossa herança, a glória de Jacó, a quem amou.
+2026/05/19 21:06:44 source=postgres | query="nos amou" | hits=6 | duration=54.914ms
+2026/05/19 21:06:44 sample | 1 João 4:10 | Nisto está o amor: não em que nós tenhamos amado a Deus, mas em que ele nos amou a nós, e enviou seu Fi...
+2026/05/19 21:06:44 sample | 1 João 4:11 | Amados, se Deus assim nos amou, nós também devemos amar-nos uns aos outros.
+2026/05/19 21:06:44 sample | 1 João 4:19 | Nós amamos, porque ele nos amou primeiro.
+2026/05/19 21:06:44 source=postgres_fts | query="nos amou" | hits=6 | duration=1.013ms
+2026/05/19 21:06:44 sample | 1 João 4:10 | Nisto está o amor: não em que nós tenhamos amado a Deus, mas em que ele nos amou a nós, e enviou seu Fi...
+2026/05/19 21:06:44 sample | 1 João 4:11 | Amados, se Deus assim nos amou, nós também devemos amar-nos uns aos outros.
+2026/05/19 21:06:44 sample | 1 João 4:19 | Nós amamos, porque ele nos amou primeiro.
+2026/05/19 21:06:44 source=mysql | query="nos amou" | hits=6 | duration=32.047ms
+2026/05/19 21:06:44 sample | 1 João 4:10 | Nisto está o amor: não em que nós tenhamos amado a Deus, mas em que ele nos amou a nós, e enviou seu Fi...
+2026/05/19 21:06:44 sample | 1 João 4:11 | Amados, se Deus assim nos amou, nós também devemos amar-nos uns aos outros.
+2026/05/19 21:06:44 sample | 1 João 4:19 | Nós amamos, porque ele nos amou primeiro.
+2026/05/19 21:06:44 source=mysql_fts | query="nos amou" | hits=6 | duration=1.898ms
+2026/05/19 21:06:44 sample | 1 João 4:10 | Nisto está o amor: não em que nós tenhamos amado a Deus, mas em que ele nos amou a nós, e enviou seu Fi...
+2026/05/19 21:06:44 sample | 1 João 4:11 | Amados, se Deus assim nos amou, nós também devemos amar-nos uns aos outros.
+2026/05/19 21:06:44 sample | 1 João 4:19 | Nós amamos, porque ele nos amou primeiro.
+2026/05/19 21:06:44 ------------------------------------------------------------
+2026/05/19 21:06:44 query="o senhor é"
+2026/05/19 21:06:44 source=elasticsearch | query="o senhor é" | hits=129 | duration=7.09ms
+2026/05/19 21:06:44 sample | Isaías 33:22 | Porque o Senhor é o nosso juiz; o Senhor é nosso legislador; o Senhor é o nosso rei; ele nos salvará.
+2026/05/19 21:06:44 sample | Salmos 121:5 | O Senhor é quem te guarda; o Senhor é a tua sombra à tua mão direita.
+2026/05/19 21:06:44 sample | Salmos 29:4 | A voz do Senhor é poderosa; a voz do Senhor é cheia de majestade.
+2026/05/19 21:06:44 source=postgres | query="o senhor é" | hits=116 | duration=51.262ms
+2026/05/19 21:06:44 sample | 1 Coríntios 6:17 | Mas, o que se une ao Senhor é um só espírito com ele.
+2026/05/19 21:06:44 sample | 1 Coríntios 10:26 | Pois do Senhor é a terra e a sua plenitude.
+2026/05/19 21:06:44 sample | 1 Coríntios 12:5 | E há diversidade de ministérios, mas o Senhor é o mesmo.
+2026/05/19 21:06:44 source=postgres_fts | query="o senhor é" | hits=88 | duration=2.69ms
+2026/05/19 21:06:44 sample | 1 Coríntios 12:5 | E há diversidade de ministérios, mas o Senhor é o mesmo.
+2026/05/19 21:06:44 sample | 1 Pedro 2:3 | se é que já provastes que o Senhor é benigno.
+2026/05/19 21:06:44 sample | 1 Reis 8:60 | para que todos os povos da terra, saibam que o Senhor é Deus, e que não há outro.
+2026/05/19 21:06:44 source=mysql | query="o senhor é" | hits=411 | duration=33.709ms
+2026/05/19 21:06:44 sample | 1 Coríntios 6:17 | Mas, o que se une ao Senhor é um só espírito com ele.
+2026/05/19 21:06:44 sample | 1 Coríntios 10:21 | Não podeis beber do cálice do Senhor e do cálice de demônios; não podeis participar da mesa do Senhor...
+2026/05/19 21:06:44 sample | 1 Coríntios 10:26 | Pois do Senhor é a terra e a sua plenitude.
+2026/05/19 21:06:44 source=mysql_fts | query="o senhor é" | hits=707 | duration=57.883ms
+2026/05/19 21:06:44 sample | 1 Coríntios 6:13 | Os alimentos são para o estômago e o estômago para os alimentos; Deus, porém aniquilará, tanto um como...
+2026/05/19 21:06:44 sample | 1 Coríntios 6:17 | Mas, o que se une ao Senhor é um só espírito com ele.
+2026/05/19 21:06:44 sample | 1 Coríntios 7:22 | Pois aquele que foi chamado no Senhor, mesmo sendo escravo, é um liberto do Senhor; e assim também o que...
+2026/05/19 21:06:44 ------------------------------------------------------------
+2026/05/19 21:06:44 benchmark completed in 627.114ms

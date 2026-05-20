@@ -1,20 +1,22 @@
 package main
 
 import (
+	"database/sql"
 	"log"
 	"os"
 	"time"
 
+	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/joho/godotenv"
 	"github.com/lghartmann/fast-bible/app/benchmark"
-	"github.com/lghartmann/fast-bible/app/elasticsearch"
+	es "github.com/lghartmann/fast-bible/app/es"
 	"github.com/lghartmann/fast-bible/app/extract"
 	"github.com/lghartmann/fast-bible/app/mysql"
 	"github.com/lghartmann/fast-bible/app/postgres"
 )
 
 const (
-	bibleIndex        = "bible"
+	bibleIndex        = "bible_v2"
 	defaultPostgresDB = "bible"
 	defaultMySQLDB    = "bible"
 	defaultFTSDB      = "bible_fts"
@@ -28,31 +30,141 @@ var benchmarkQueries = []string{
 	"o senhor é",
 }
 
+var pgConfig postgres.Config
+var pgDB *sql.DB
+var pgFTSConfig postgres.Config
+var pgFTSDB *sql.DB
+var mysqlConfig mysql.Config
+var myDB *sql.DB
+var mysqlFTSConfig mysql.Config
+var myFTSDB *sql.DB
+var esClient *elasticsearch.TypedClient
+
 func main() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
-	elasticAddr := os.Getenv("ELASTIC_SEARCH_UNSAFE_ADDRESS")
+
+	if err := initClients(); err != nil {
+		log.Fatal(err)
+	}
+	defer closeClients()
 
 	data := extract.ExtractFromJSON()
 	log.Printf("loaded %d verses from JSON", len(data))
 
-	if err := runBenchmarks(elasticAddr); err != nil {
+	hasDocAtEs, err := es.CheckESDataExistence(bibleIndex, esClient)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	hasDocAtPG, err := postgresDatabasesHaveData()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	hasDocAtMySQL, err := mysqlDatabasesHaveData()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if !hasDocAtEs {
+		if err := populateElasticSearch(data); err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	if !hasDocAtPG {
+		if err := populatePostgresDatabases(data); err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	if !hasDocAtMySQL {
+		if err := populateMySQLDatabases(data); err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	if err := runBenchmarks(); err != nil {
 		log.Fatalf("err running benchmarks: %s", err)
 	}
 }
 
-func populateElasticSearch(addr string, data []extract.VerseDocument) error {
-	log.Printf("populating Elasticsearch index %q", bibleIndex)
-
-	es := elasticsearch.NewElasticSearch(addr)
-
-	if err := elasticsearch.CreateMapping(bibleIndex, elasticsearch.BuildVerseMapping(), es); err != nil {
+func initClients() error {
+	pgConfig = postgres.Config{
+		Address:  os.Getenv("POSTGRES_URL"),
+		Database: getenvDefault("POSTGRES_DB", defaultPostgresDB),
+		User:     os.Getenv("POSTGRES_USER"),
+		Password: os.Getenv("POSTGRES_PASSWORD"),
+	}
+	var err error
+	pgDB, err = postgres.Open(pgConfig)
+	if err != nil {
 		return err
 	}
 
-	return elasticsearch.IndexVerses(bibleIndex, data, es)
+	pgFTSConfig = pgConfig
+	pgFTSConfig.Database = getenvDefault("POSTGRES_FTS_DB", defaultFTSDB)
+	pgFTSDB, err = postgres.Open(pgFTSConfig)
+	if err != nil {
+		_ = pgDB.Close()
+		return err
+	}
+
+	mysqlConfig = mysql.Config{
+		Address:  os.Getenv("MYSQL_URL"),
+		Database: getenvDefault("MYSQL_DB", defaultMySQLDB),
+		User:     os.Getenv("MYSQL_USER"),
+		Password: os.Getenv("MYSQL_PASSWORD"),
+	}
+	myDB, err = mysql.Open(mysqlConfig)
+	if err != nil {
+		_ = pgFTSDB.Close()
+		_ = pgDB.Close()
+		return err
+	}
+
+	mysqlFTSConfig = mysqlConfig
+	mysqlFTSConfig.Database = getenvDefault("MYSQL_FTS_DB", defaultFTSDB)
+	myFTSDB, err = mysql.Open(mysqlFTSConfig)
+	if err != nil {
+		_ = myDB.Close()
+		_ = pgFTSDB.Close()
+		_ = pgDB.Close()
+		return err
+	}
+
+	elasticAddr := os.Getenv("ELASTIC_SEARCH_UNSAFE_ADDRESS")
+	esClient = es.NewElasticSearch(elasticAddr)
+
+	return nil
+}
+
+func closeClients() {
+	if myFTSDB != nil {
+		_ = myFTSDB.Close()
+	}
+	if myDB != nil {
+		_ = myDB.Close()
+	}
+	if pgFTSDB != nil {
+		_ = pgFTSDB.Close()
+	}
+	if pgDB != nil {
+		_ = pgDB.Close()
+	}
+}
+
+func populateElasticSearch(data []extract.VerseDocument) error {
+	log.Printf("populating Elasticsearch index %q", bibleIndex)
+
+	if err := es.CreateMapping(bibleIndex, es.BuildVerseMapping(), esClient); err != nil {
+		return err
+	}
+
+	return es.IndexVerses(bibleIndex, data, esClient)
 }
 
 func populatePostgresDatabases(data []extract.VerseDocument) error {
@@ -121,50 +233,50 @@ func populateMySQLDatabase(name string, cfg mysql.Config, fullText bool, data []
 	return mysql.InsertVerses(db, data)
 }
 
-func runBenchmarks(elasticAddr string) error {
+func postgresDatabasesHaveData() (bool, error) {
+	if err := postgres.EnsureSchema(pgDB, false); err != nil {
+		return false, err
+	}
+	if err := postgres.EnsureSchema(pgFTSDB, true); err != nil {
+		return false, err
+	}
+
+	hasPrimary, err := postgres.CheckPGDataExistence(pgDB)
+	if err != nil {
+		return false, err
+	}
+
+	hasFTS, err := postgres.CheckPGDataExistence(pgFTSDB)
+	if err != nil {
+		return false, err
+	}
+
+	return hasPrimary && hasFTS, nil
+}
+
+func mysqlDatabasesHaveData() (bool, error) {
+	if err := mysql.EnsureSchema(myDB, false); err != nil {
+		return false, err
+	}
+	if err := mysql.EnsureSchema(myFTSDB, true); err != nil {
+		return false, err
+	}
+
+	hasPrimary, err := mysql.CheckMySQLDataExistence(myDB)
+	if err != nil {
+		return false, err
+	}
+
+	hasFTS, err := mysql.CheckMySQLDataExistence(myFTSDB)
+	if err != nil {
+		return false, err
+	}
+
+	return hasPrimary && hasFTS, nil
+}
+
+func runBenchmarks() error {
 	log.Printf("benchmark starting with %d queries across 5 data sources", len(benchmarkQueries))
-
-	es := elasticsearch.NewElasticSearch(elasticAddr)
-
-	pgConfig := postgres.Config{
-		Address:  os.Getenv("POSTGRES_URL"),
-		Database: getenvDefault("POSTGRES_DB", defaultPostgresDB),
-		User:     os.Getenv("POSTGRES_USER"),
-		Password: os.Getenv("POSTGRES_PASSWORD"),
-	}
-	pgDB, err := postgres.Open(pgConfig)
-	if err != nil {
-		return err
-	}
-	defer pgDB.Close()
-
-	pgFTSConfig := pgConfig
-	pgFTSConfig.Database = getenvDefault("POSTGRES_FTS_DB", defaultFTSDB)
-	pgFTSDB, err := postgres.Open(pgFTSConfig)
-	if err != nil {
-		return err
-	}
-	defer pgFTSDB.Close()
-
-	mysqlConfig := mysql.Config{
-		Address:  os.Getenv("MYSQL_URL"),
-		Database: getenvDefault("MYSQL_DB", defaultMySQLDB),
-		User:     os.Getenv("MYSQL_USER"),
-		Password: os.Getenv("MYSQL_PASSWORD"),
-	}
-	myDB, err := mysql.Open(mysqlConfig)
-	if err != nil {
-		return err
-	}
-	defer myDB.Close()
-
-	mysqlFTSConfig := mysqlConfig
-	mysqlFTSConfig.Database = getenvDefault("MYSQL_FTS_DB", defaultFTSDB)
-	myFTSDB, err := mysql.Open(mysqlFTSConfig)
-	if err != nil {
-		return err
-	}
-	defer myFTSDB.Close()
 
 	runners := []struct {
 		run func(string) (benchmark.Result, error)
@@ -172,7 +284,7 @@ func runBenchmarks(elasticAddr string) error {
 		{
 			run: func(query string) (benchmark.Result, error) {
 				return benchmarkSearch("elasticsearch", query, func() (int, []extract.VerseDocument, error) {
-					return elasticsearch.SearchVerses(bibleIndex, query, benchmark.SampleLimit, es)
+					return es.SearchVerses(bibleIndex, query, benchmark.SampleLimit, esClient)
 				})
 			},
 		},
@@ -204,6 +316,15 @@ func runBenchmarks(elasticAddr string) error {
 				})
 			},
 		},
+	}
+
+	log.Printf("warmup pass (results discarded)")
+	for _, query := range benchmarkQueries {
+		for _, runner := range runners {
+			if _, err := runner.run(query); err != nil {
+				return err
+			}
+		}
 	}
 
 	overallStarted := time.Now()
